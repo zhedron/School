@@ -13,7 +13,7 @@ public class School {
     public void start () {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("1. Enter your name, lastname and password\n 2. Enter if you want know your average grade\n " +
+        System.out.println("1. Enter your name, lastname and password.\n 2. Enter if you want know your average grade\n " +
                 "3. Enter your name, lastName and job position teacher.\n 4. Exit");
 
         student = new Student();
@@ -21,15 +21,9 @@ public class School {
 
         int action = scanner.nextInt();
 
-     //   String generatePassword = generatePassword();
-
-      //  System.out.println("Your password: " + generatePassword);
-
         switch (action) {
             case 1:
                 registration();
-             //   break;
-
             case 2:
                 averageGrade();
                 averageGradeForMonth();
@@ -97,7 +91,7 @@ public class School {
         String lastNameStudent = scanner.nextLine();
 
         System.out.println("Enter your grade today");
-        //  String password = scanner.nextLine();
+
         double grade = scanner.nextDouble();
 
         String password = generatePassword();
@@ -125,20 +119,4 @@ public class School {
         teacher.setLastName(lastNameTeacher);
         teacher.setJobPosition(jobPosition);
     }
-
-   /* public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
-    }*/
 }
