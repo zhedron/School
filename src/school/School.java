@@ -1,23 +1,18 @@
 package school;
 
 import models.Student;
-import models.Teacher;
 
 import java.util.Scanner;
 import java.util.UUID;
 
 public class School {
-    public Student student;
-    public Teacher teacher;
+    public Student student = new Student();
 
     public void start () {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Enter your name, lastname and password.\n 2. Enter if you want know your average grade\n " +
-                "3. Enter your name, lastName and job position teacher.\n 4. Exit");
-
-        student = new Student();
-        teacher = new Teacher();
+                "3. Exit");
 
         int action = scanner.nextInt();
 
@@ -28,13 +23,11 @@ public class School {
                 averageGrade();
                 averageGradeForMonth();
                 break;
-
             case 3:
-                registrationTeacher();
+                System.out.println("Exit");
                 break;
-
             default:
-                System.out.println("Application finished.");
+                System.out.println("Wrong action.");
         }
     }
 
@@ -51,7 +44,7 @@ public class School {
 
         double result = grade / 2;
 
-        System.out.println(result);
+        System.out.println("Average Grade for day: " + result);
     }
 
     public void averageGradeForMonth () {
@@ -63,15 +56,10 @@ public class School {
 
         double totalGrade = 0;
 
-        for (int day = 1; day < daysInMonth; day++) {
-            double dailyGrade = student.getGrade();
+        for (int day = 1; day <= daysInMonth; day++) {
+            double[] dailyGrade = student.getGrades();
 
-            if (dailyGrade < 0) {
-                day--;
-                continue;
-            }
-
-            totalGrade += dailyGrade;
+            totalGrade += dailyGrade[day - 1];
         }
 
         double averageGrade = totalGrade / daysInMonth;
@@ -86,19 +74,32 @@ public class School {
 
         String nameStudent = scanner.nextLine();
 
+        System.out.println("Your name: " + nameStudent);
+
         System.out.println("Enter your last name");
 
         String lastNameStudent = scanner.nextLine();
 
+        System.out.println("Your last name: " + lastNameStudent);
+
+        String generatePassword = generatePassword();
+
+        System.out.println("Your password: " + generatePassword);
+
+        System.out.println("Enter your password");
+
+        String password = scanner.nextLine();
+
+        if (password.equals(generatePassword)) {
+            System.out.println("Password is correct");
+        } else {
+            System.out.println("Incorrect password");
+            System.exit(0);
+        }
+
         System.out.println("Enter your grade today");
 
         double grade = scanner.nextDouble();
-
-        String password = generatePassword();
-
-        System.out.println("Your password: " + password);
-
-        System.out.println("Name Student: " +  nameStudent);
 
         System.out.println("Grade: " + grade);
 
@@ -106,17 +107,17 @@ public class School {
         student.setLastName(lastNameStudent);
         student.setPassword(password);
         student.setGrade(grade);
-    }
 
-    public void registrationTeacher () {
-        Scanner scanner = new Scanner(System.in);
+        double[] gradeForMonth = new double[30];
 
-        String nameTeacher = scanner.nextLine();
-        String lastNameTeacher = scanner.nextLine();
-        String jobPosition = scanner.nextLine();
+        for (int i = 1; i < gradeForMonth.length; i++) {
+            System.out.println("Enter 30 grade");
 
-        teacher.setName(nameTeacher);
-        teacher.setLastName(lastNameTeacher);
-        teacher.setJobPosition(jobPosition);
+            gradeForMonth[i] = scanner.nextDouble();
+
+            System.out.println("Time " + i + ": Grade " + gradeForMonth[i]);
+
+            student.setGrades(gradeForMonth);
+        }
     }
 }
